@@ -9,8 +9,13 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>java-image-combiner</name>
-    <!--<url>https://github.com/chichengyu/task-spring-boot-starter</url>-->
+    <url>https://github.com/chichengyu/java-image-combiner</url>
     <description>java处理图片工具包,包含图文合成、毛玻璃效果、离散效果、制作海报等</description>
+    <!--
+     address:
+        https://github.com/chichengyu/java-image-combiner
+        https://gitee.com/chichengyu/java-image-combiner
+    -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

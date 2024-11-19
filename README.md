@@ -1,9 +1,6 @@
 # java-image-combiner
 <p align="left">
     <a href="https://github.com/chichengyu/java-image-combiner">
-        <img src="https://img.shields.io/badge/last version-1.0.0-%23129e50" alt="version-1.0.0" />
-    </a>
-    <a href="https://github.com/chichengyu/java-image-combiner">
         <img src="https://img.shields.io/badge/last version-1.0.0-green" alt="version-1.0.0" />
     </a>
 </p>
