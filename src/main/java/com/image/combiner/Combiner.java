@@ -32,9 +32,6 @@ import java.util.Random;
 /** Combiner 组合器
  * author xiaochi
  * date 2024/11/13
- * address:
- *   https://github.com/chichengyu/java-image-combiner
- *   https://gitee.com/chichengyu/java-image-combiner
  */
 public class Combiner extends Base {
     /**

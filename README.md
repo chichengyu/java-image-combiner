@@ -1,7 +1,24 @@
 # java-image-combiner
+<p align="left">
+    <a href="https://github.com/chichengyu/java-image-combiner">
+        <img src="https://img.shields.io/badge/%E4%BD%9C%E8%80%85-%E5%B0%8F%E6%B1%A0-%23129e50" alt="MIT License" />
+    </a>
+    <a href="https://github.com/chichengyu/java-image-combiner">
+        <img src="https://img.shields.io/badge/last version-1.0.0-green" alt="version-1.0.0" />
+    </a>
+</p>
 
 ### 介绍
 Java处理图片工具包,包含图文合成、毛玻璃效果、离散效果、制作海报等
+
+### 导包
+```
+<dependency>
+    <groupId>com.image.combiner</groupId>
+    <artifactId>java-image-combiner</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 ### 说明
 #### 1.画布
