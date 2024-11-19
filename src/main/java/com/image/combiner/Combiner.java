@@ -784,7 +784,7 @@ public class Combiner extends Base {
                         }
                         int charWidth = fontMetrics.charWidth(c);
                         g2d.drawString(String.valueOf(c), x + text.getTextX(), ystart);
-                        x += charWidth + text.getSpace();
+                        x += (charWidth + text.getSpace());
                     }
                 }
                 ystart += lineHeight;
@@ -805,7 +805,7 @@ public class Combiner extends Base {
                     }
                     int charWidth = fontMetrics.charWidth(c);
                     g2d.drawString(String.valueOf(c), x + text.getTextX(), ystart);
-                    x += charWidth + text.getSpace();
+                    x += (charWidth + text.getSpace());
                 }
                 ystart += lineHeight;
             }
