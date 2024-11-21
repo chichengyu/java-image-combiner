@@ -791,7 +791,7 @@ public class Combiner extends Base {
         float x = indent;
         int lastCharWidth = 0;
         for (char c : chars) {
-            if (textHeight > 0 && ystart > height){
+            if ((textHeight > 0) && (ystart > height)){
                 break;
             }
             boolean row = (!"".equals(text.getSepar())) && String.valueOf(c).equals(text.getSepar());
