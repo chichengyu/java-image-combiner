@@ -762,55 +762,98 @@ public class Combiner extends Base {
             at.rotate(Math.toRadians(text.getRotate()),text.getRotateX(),text.getRotateY()); // 旋转45度，旋转中心为(文字x坐标,100)
             g2d.setTransform(at);
         }
-        float lineHeight = g2d.getFontMetrics().getHeight() + text.getLineHeight();
-        float ystart = text.getTextY() + lineHeight;
-        int indent = text.getIndent();
-        int textWidth = text.getWidth();
-        if (text.isWrap()){
-            FontMetrics fontMetrics = g2d.getFontMetrics(font);
-            String[] lines = Text.splitText(text.getText(), textWidth, fontMetrics,indent); //实现文字自动换行
-            int row = 1;
-            for (String line : lines) {
-                if (row > 1){
-                    indent = 0;
-                }
-                if (null != line && !"".equals(line)){
-                    char[] chars = line.toCharArray();
-                    float x = indent;
-                    for (char c : chars) {
-                        if (x > textWidth){
-                            x = 0;
-                            ystart += lineHeight;
-                        }
-                        int charWidth = fontMetrics.charWidth(c);
-                        g2d.drawString(String.valueOf(c), x + text.getTextX(), ystart);
-                        x += (charWidth + text.getSpace());
-                    }
-                }
-                ystart += lineHeight;
-                row++;
-            }
+        if (Text.Mode.ROW.equals(text.getDirection())){
+            // 横排显示
+            textRow(combiner,g2d, text, g2d.getFontMetrics(font));
         }else {
-            String[] lines = {text.getText()};
-            if (!"".equals(text.getSepar())){
-                lines = text.getText().split(text.getSepar());
-            }
-            FontMetrics fontMetrics = g2d.getFontMetrics(font);
-            for (String line : lines) {
-                char[] chars = line.toCharArray();
-                float x = indent;
-                for (char c : chars) {
-                    if (x > textWidth){
-                        break;
-                    }
-                    int charWidth = fontMetrics.charWidth(c);
-                    g2d.drawString(String.valueOf(c), x + text.getTextX(), ystart);
-                    x += (charWidth + text.getSpace());
-                }
-                ystart += lineHeight;
-            }
+            // 竖排显示
+            textCol(combiner,g2d, text, g2d.getFontMetrics(font));
         }
         g2d.dispose();
         return this;
+    }
+
+    /**
+     * 横排显示
+     * @param g2d
+     * @param text
+     * @param fontMetrics
+     */
+    public Graphics2D textRow(BufferedImage combiner,Graphics2D g2d,Text text,FontMetrics fontMetrics){
+        float lineHeight = g2d.getFontMetrics().getHeight() + text.getLineHeight();
+        float ystart = text.getTextY() + lineHeight;
+        int indent = text.getIndent();
+        float space = text.getSpace();
+        char[] chars = text.getText().toCharArray();
+        int textWidth = (text.getWidth() > 0 ? text.getWidth() : (combiner.getWidth() - Math.round(text.getTextX()) - Math.round(space)));
+        int textHeight = text.getHeight();
+        float height = (textHeight + ystart);
+        float x = indent;
+        int lastCharWidth = 0;
+        for (char c : chars) {
+            if (textHeight > 0 && ystart > height){
+                break;
+            }
+            boolean row = (!"".equals(text.getSepar())) && String.valueOf(c).equals(text.getSepar());
+            if (row || (x > textWidth)){
+                if (!text.isWrap()){
+                    break;
+                }
+                x = (row ? indent : 0);
+                ystart += lineHeight;
+            }
+            int charWidth = lastCharWidth = Math.max(fontMetrics.charWidth(c),lastCharWidth);
+            g2d.drawString(String.valueOf(c), x + text.getTextX(), ystart);
+            if (!row){
+                x += (charWidth + space);
+            }
+        }
+        return g2d;
+    }
+
+    /**
+     * 竖排显示
+     * @param g2d
+     * @param text
+     * @param fontMetrics
+     */
+    public Graphics2D textCol(BufferedImage combiner,Graphics2D g2d,Text text,FontMetrics fontMetrics){
+        float fontHeight = g2d.getFontMetrics().getHeight() + text.getLineHeight();
+        char[] chars = text.getText().toCharArray();
+        float height = combiner.getHeight() - text.getTextY() - text.getLineHeight();
+        float space = text.getSpace();
+        int textHeight = text.getHeight();
+        float h = (text.getTextY() + textHeight + fontHeight);
+        if (textHeight > 0){
+            height = h;
+        }
+        float w = text.getTextX() + (text.getWidth() > 0 ? text.getWidth() : combiner.getWidth());
+        int indent = text.getIndent();
+        if (indent > 0){
+            indent = Math.round(Math.round((Math.max(text.getIndent(),fontHeight) / fontHeight)) * fontHeight);
+        }
+        float y = indent;
+        float xstart = text.getTextX() + space;
+        int lastCharWidth = 0;
+        boolean wrap = text.isWrap();
+        for (char c : chars) {
+            int charWidth = lastCharWidth = Math.max(fontMetrics.charWidth(c),lastCharWidth);
+            boolean col = (!"".equals(text.getSepar())) && String.valueOf(c).equals(text.getSepar());
+            if (col || (y > height)){
+                if (!wrap){
+                    break;
+                }
+                y = (col ? indent : 0);
+                xstart += (charWidth + space);
+            }
+            if (xstart > w){
+                break;
+            }
+            g2d.drawString(String.valueOf(c), Base.exists(c) ? (xstart + 8) : xstart, y + text.getTextY());
+            if (!col){
+                y += fontHeight;
+            }
+        }
+        return g2d;
     }
 }

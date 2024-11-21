@@ -1,7 +1,7 @@
 # java-image-combiner
 <p align="left">
     <a href="https://github.com/chichengyu/java-image-combiner">
-        <img src="https://img.shields.io/badge/last version-1.0.0-green" alt="version-1.0.0" />
+        <img src="https://img.shields.io/badge/last version-1.1.0-green" alt="version-1.1.0" />
     </a>
 </p>
 
@@ -11,9 +11,9 @@ Java处理图片工具包,包含图文合成、毛玻璃效果、离散效果、
 ### 导包
 ```
 <dependency>
-    <groupId>com.image.combiner</groupId>
+    <groupId>io.github.chichengyu</groupId>
     <artifactId>java-image-combiner</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -21,12 +21,7 @@ Java处理图片工具包,包含图文合成、毛玻璃效果、离散效果、
 #### 1.画布
 整个画布获取,然后可以进行自行扩展,不断绘制
 ```
-BufferedImage combiner1 = Combiner.create(bgimgPath)
-    .addImage(image, 250, 0)
-    .scale(3)
-    .addText(text)
-    .convolveOp(op).suffix("jpeg")
-    .save("D:\\ssss\\aaa\\03.jpg", true)
+BufferedImage combiner = Combiner.create(bgimgPath)
     .getCombiner();
 ```
 空白画布
@@ -253,6 +248,11 @@ Text text = Text.create(txt)
 Combiner.create(bgimgPath)
     .addText(text)
     .save("D:\\03.jpg",true);
+```
+文本显示模式(横排Text.Mode.ROW/竖排Text.Mode.COL)
+```
+Text.create(txt)
+    .direction(Text.Mode.ROW);
 ```
 文本字体大小、颜色、换行、行高等等设置
 ```

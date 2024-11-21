@@ -14,7 +14,9 @@ import java.util.List;
  */
 public class Text {
 
-    private int width;// 宽度,默认0(0表示竖排显示)
+    private Mode direction = Mode.ROW;// 默认行显示
+    private int width = 0;// 宽度,默认0
+    private int height = 0;// 文本高度,默认0展示全部
     private float space = 0;// 字间距,默认0
     private float lineHeight = 0;// 行高,默认0
     private boolean wrap = false;//是否换行,默认false
@@ -57,6 +59,42 @@ public class Text {
     }
 
     /**
+     * 获取文本显示模式
+     * @return Mode
+     */
+    public Mode getDirection() {
+        return direction;
+    }
+
+    /**
+     * 设置文本显示模式
+     * @param direction Text.Mode.ROW
+     * @return Text
+     */
+    public Text direction(Mode direction) {
+        this.direction = direction;
+        return this;
+    }
+
+    /**
+     * 获取文本高度
+     * @return int
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * 设置文本高度
+     * @param height 文本高度
+     * @return Text
+     */
+    public Text height(int height) {
+        this.height = height;
+        return this;
+    }
+
+    /**
      * 获取字间距
      * @return space
      */
@@ -66,8 +104,8 @@ public class Text {
 
     /**
      * 设置字间距
-     * @param space
-     * @return
+     * @param space 字间距
+     * @return Text
      */
     public Text space(float space) {
         this.space = space;
@@ -412,5 +450,10 @@ public class Text {
         for (int i = 0; i < fontName.length; i++) {
             System.out.println(fontName[i]);
         }
+    }
+
+    public static enum Mode{
+        ROW,
+        COL;
     }
 }

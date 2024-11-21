@@ -17,6 +17,16 @@ import java.awt.image.BufferedImage;
 public class Base {
 
     /**
+     * 判断字符是否存在
+     * @param ch 字符
+     * @return boolean
+     */
+    public static boolean exists(char ch) {
+        String characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        return characters.indexOf(ch) != -1;
+    }
+
+    /**
      * 重新绘制
      * @param originalImage 原图像
      * @param newWidth 新宽度
